@@ -64,7 +64,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 mt-4" v-if="personalType !== null">
+                        <div class="col-12 mt-4">
                             <label for="name">{{personalType == 1 ? 'Nome Completo' : 'Razão Social'}}</label>
                             <input type="text" name="name" id="name" v-model="form.name" :placeholder="personalType == 1 ? 'Nome Completo' : 'Razão Social'">
                         </div>
@@ -80,7 +80,7 @@
                                 data-maska="##.###.###/####-##" placeholder="00.000.000/0000-00">
                         </div>
 
-                        <div class="col-12 mt-4" v-if="personalType !== null">
+                        <div class="col-12 mt-4">
                             <label for="email">E-mail</label>
                             <input type="text" name="email" id="email" v-model="form.email" placeholder="Digite o email para contato">
                         </div>
@@ -99,22 +99,28 @@
                             </select>
                         </div>
 
-                        <div class="col-12 mt-4" v-if="personalType !== null">
+                        <div class="col-12 mt-4">
                             <label for="">Atividade Segurada</label>
 
                             <div class="mb-1">
                                 <span class="infoInput">Selecione uma ou mais atividades abaixo</span>
                             </div>
                             <div v-for="option in especialidadeOption" :key="option.value" class="box-check">
-                                <input class="checkbox" type="checkbox" :id="option.id" v-model="form.especialidade"
-                                    :value="option.value" @change="updatEspecialty(form.especialidade)">
+                                <input 
+                                    class="checkbox form-check-input" 
+                                    type="checkbox" 
+                                    :id="option.id" 
+                                    v-model="form.especialidade"
+                                    :value="option.value" 
+                                    @change="updatEspecialty(form.especialidade)"
+                                >
                                 <label :for="option.value" class="label-especialidade">
                                     {{ option.text }}
                                 </label>
                             </div>
                         </div>
 
-                        <div class="col-12" v-if="personalType !== null">
+                        <div class="col-12">
                             <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(1)">
                                 <span>Avançar</span>
                                 <div class="p-1">
@@ -336,12 +342,9 @@
                                                     name="IDontWantToFillInTheInformation"
                                                     id="IDontWantToFillInTheInformation"
                                                     v-model="form.IDontWantToFillInTheInformation">
-                                                <label for="IDontWantToFillInTheInformation"
-                                                    class="form-check-label">Não
-                                                    quero
-                                                    informar os
-                                                    dados
-                                                    abaixo:</label>
+                                                <label for="IDontWantToFillInTheInformation" class="form-check-label">
+                                                    Não quero informar os dados abaixo:
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="col-12" v-if="form.IDontWantToFillInTheInformation === false">
@@ -2151,8 +2154,8 @@
         }
 
         .form-check-input:checked {
-            background-color: #E9256A;
-            border-color: #E9256A;
+            background-color: #17365F !important;
+            border-color: #17365F !important;
         }
 
         textarea:focus,
