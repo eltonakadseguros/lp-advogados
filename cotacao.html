@@ -16,6 +16,9 @@
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.umd.js"></script>
+
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Poppins:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -60,30 +63,31 @@
                                     :class="{'btn-active' : personalType == 2}">Pessoa juridica</button>
                             </div>
                         </div>
-                        <div class="col-12 mt-4" v-if="personalType == 1">
-                            <label for="cpf">CPF</label>
-                            <input type="text" name="cpf" id="cpf" v-model="form.cpf" v-maska
-                                data-maska="###.###.###-##">
-                        </div>
-                        <div class="col-12 mt-4" v-if="personalType == 2">
-                            <label for="cnpf">Cnpj</label>
-                            <input type="text" name="cnpj" id="cnpf" v-model="form.cnpj" v-maska
-                                data-maska="##.###.###/####-##">
-                        </div>
 
                         <div class="col-12 mt-4" v-if="personalType !== null">
                             <label for="name">{{personalType == 1 ? 'Nome Completo' : 'Razão Social'}}</label>
-                            <input type="text" name="name" id="name" v-model="form.name">
+                            <input type="text" name="name" id="name" v-model="form.name" :placeholder="personalType == 1 ? 'Nome Completo' : 'Razão Social'">
+                        </div>
+
+                        <div class="col-12 mt-4" v-if="personalType == 1">
+                            <label for="cpf">CPF</label>
+                            <input type="text" name="cpf" id="cpf" v-model="form.cpf" v-maska
+                                data-maska="###.###.###-##" placeholder="000.000.000-00">
+                        </div>
+                        <div class="col-12 mt-4" v-if="personalType == 2">
+                            <label for="cnpf">CNPJ</label>
+                            <input type="text" name="cnpj" id="cnpf" v-model="form.cnpj" v-maska
+                                data-maska="##.###.###/####-##" placeholder="00.000.000/0000-00">
                         </div>
 
                         <div class="col-12 mt-4" v-if="personalType !== null">
                             <label for="email">E-mail</label>
-                            <input type="text" name="email" id="email" v-model="form.email">
+                            <input type="text" name="email" id="email" v-model="form.email" placeholder="Digite o email para contato">
                         </div>
 
                         <div class="col-12 mt-4">
                             <label for="oab">OAB</label>
-                            <input type="text" name="oab" id="oab" v-model="form.oab">
+                            <input type="text" name="oab" id="oab" v-model="form.oab" placeholder="Digite o número da OAB">
                         </div>
 
                         <div class="col-12 mt-4" v-if="personalType == 2">
@@ -1009,6 +1013,7 @@
                     installmentOptionSelected: 1,
                     selectedOptions: [],
                     invoicingOption: [
+                        {text: 'Selecione o faturamento', value: ''},
                         { text: 'R$ 50.000,00 a R$ 100.000,00', value: 1 },
                         { text: 'R$ 100.000,00 a R$ 200.000,00', value: 2 },
                         { text: 'R$ 200.000,00 a R$ 500.000,00', value: 3 },
@@ -1912,25 +1917,34 @@
         }
 
         h1 {
-            font-family: 'Kessel 105 Text';
-            font-style: normal;
+            font-family: 'Poppins', sans-serif !important;
+            font-style: normal !important;
             font-weight: 700 !important;
-            font-size: 18px !important;
-            line-height: 125%;
+            font-size: 1.125em !important;
+            line-height: 125% !important;
             text-align: center;
             color: #17365F;
             margin-bottom: 0;
         }
 
         h2 {
-            font-family: 'Open Sans';
-            margin: 0;
+            font-family: 'Open Sans', sans-serif !important;
             font-size: 12px !important;
             color: #2E2E33;
             text-align: center;
+            font-style: normal !important;
+            font-weight: 700 !important;
+            line-height: 125% !important;
+            margin: 0;
         }
 
         .btn-akad {
+            font-family: 'Open Sans', sans-serif !important;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 24px;
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1941,14 +1955,12 @@
 
             color: #17365F;
             border-radius: 4px;
-            border: 1px solid #17365F;
+            border: 1px solid #DEE7F1;
             background-color: white;
-
         }
 
         .btn-active {
-            color: white;
-            background-color: #17365F;
+            background-color: #DEE7F1;
         }
 
         label {
@@ -2044,16 +2056,15 @@
         }
 
         .ball1 {
-            border-radius: 4px;
-            height: 12px;
-            width: 30px;
+            border-radius: 0.25rem;
+            height: 0.75rem;
+            width: 1.875rem;
             background: #E3E5E6;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 3px;
-            border: 3px solid white;
         }
 
         .infoInput {
@@ -2321,7 +2332,7 @@
 
         .text-danger-akad {
             color: #E01B1B;
-            font-family: 'Open Sans';
+            font-family: 'Open Sans', sans-serif !important;
             font-style: italic;
             font-weight: 600;
             font-size: 12px;
