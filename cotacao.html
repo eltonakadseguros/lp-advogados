@@ -229,10 +229,10 @@
                         </div>
                     </div>
                     <div class="row" v-if="pageActive == 3">
-                        <h1>Condições da Apólice</h1>
+                        <h1>Informações gerais</h1>
 
                         <div class="col-12 mt-4">
-                            <label for="dateInit">Inicio da vigência da apólice</label>
+                            <label for="dateInit">Início da vigência da apólice</label>
                             <input type="date" :min='today' name="dateInit" id="dateInit" v-model="form.dateInit">
                             <div class="span-error mt-2" v-if="!validadeDateInit()">
                                 <svg width="18" height="16" viewBox="0 0 18 16" fill="none"
@@ -256,14 +256,6 @@
                             </select>
                         </div>
                         <div class="col-12 mt-4">
-                            <label for="">Retroatividade</label>
-                            <select v-model="form.retroactivity">
-                                <option v-for="option in retroactivityOption" v-bind:value="option.value">
-                                    {{ option.text }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-12 mt-4">
                             <label for="">Franquia</label>
                             <select v-model="form.deductible">
                                 <option v-for="option in deductibleOption" v-bind:value="option.value">
@@ -272,7 +264,20 @@
                             </select>
                             <div>
                                 <span class="infoInput">
-                                    Participação do segurado nos prejuízos em virtude do acionamento de sua apólice
+                                    Participação do segurado nos prejuízos em virtude de sinistro ocorrido no local de risco.
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <label for="">Retroatividade</label>
+                            <select v-model="form.retroactivity">
+                                <option v-for="option in retroactivityOption" v-bind:value="option.value">
+                                    {{ option.text }}
+                                </option>
+                            </select>
+                            <div>
+                                <span class="infoInput">
+                                    Extensão de cobertura a fatos passados
                                 </span>
                             </div>
                         </div>
@@ -1059,8 +1064,9 @@
                         { text: '02 ou mais', value: 3 },
                     ],
                     retroactivityOption: [
+                        { text: 'Selecione a retroatividade', value: '' },
                         { text: 'Sem Retroatividade', value: 1 },
-                        { text: 'Até 1 anos', value: 2 },
+                        { text: 'Até 1 ano', value: 2 },
                         { text: 'Até 2 anos', value: 3 },
                         { text: 'Até 3 anos', value: 4 },
                         { text: 'Até 4 anos', value: 5 },
@@ -1658,9 +1664,14 @@
 
                     axios.post(`${this.base_url}/operation/api/operations/get-deductibles`, JSON.stringify(raw), config)
                         .then((response) => {
-                            this.deductibleOption = response.data.map(element => {
+                            const deductible = [{text: 'Selecione a franquia desejada', value: ''}]
+                            const deductibleNew = response.data.map(element => {
                                 return { text: element.text, value: element.option }
                             })
+
+                            deductible.push(...deductibleNew)
+
+                            this.deductibleOption = deductible
                             this.loading = false
                         })
                         .catch((error) => {
@@ -1693,9 +1704,14 @@
 
                     axios.post(`${this.base_url}/operation/api/operations/get-insured-amount`, JSON.stringify(raw), config)
                         .then((response) => {
-                            this.insuredAmountOption = response.data.map(element => {
+                            const insureAmount = [{text: 'Selecione a importância segurada', value: ''}]
+                            const insureAmountNew = response.data.map(element => {
                                 return { text: element.text, value: element.id }
                             })
+
+                            insureAmount.push(...insureAmountNew)
+
+                            this.insuredAmountOption = insureAmount
                             this.loading = false
                         })
                         .catch((error) => {
