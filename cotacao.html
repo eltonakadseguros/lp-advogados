@@ -121,7 +121,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(1)">
+                            <button class="buttonAkad" @click="hideSection" :disabled="!validateForm(1)">
                                 <span>Avançar</span>
                                 <div class="p-1">
                                     <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -262,7 +262,7 @@
                                     {{ option.text }}
                                 </option>
                             </select>
-                            <div>
+                            <div class="mt-1">
                                 <span class="infoInput">
                                     Participação do segurado nos prejuízos em virtude de sinistro ocorrido no local de risco.
                                 </span>
@@ -275,7 +275,7 @@
                                     {{ option.text }}
                                 </option>
                             </select>
-                            <div>
+                            <div class="mt-1">
                                 <span class="infoInput">
                                     Extensão de cobertura a fatos passados
                                 </span>
@@ -318,10 +318,10 @@
                                 <div class="col-12 mt-4">
                                     <label for="rua">Telefone</label>
                                     <input type="text" v-maska data-maska="['(##) ####-####', '(##) # ####-####']"
-                                        name="phoneNumber" id="phoneNumber" v-model="form.phoneNumber">
+                                        name="phoneNumber" id="phoneNumber" v-model="form.phoneNumber" placeholder="(--) ---- ----">
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <label for="">Sexo</label>
+                                    <label for="">Gênero</label>
                                     <select v-model="form.gender">
                                         <option v-for="option in sexoOption" v-bind:value="option.value">
                                             {{ option.text }}
@@ -342,7 +342,7 @@
                                         </select>
 
                                     </div>
-                                    <div>
+                                    <div class="mt-1">
                                         <span class="infoInput">
                                             Para finalizar a contratação do seguro, você deverá informar se nos últimos
                                             5
@@ -355,50 +355,50 @@
                                         </span>
                                     </div>
                                 </div>
+
                                 <div v-if="form.PEP === 'true'" class="col-12 mt-4">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input"
-                                                    name="IDontWantToFillInTheInformation"
-                                                    id="IDontWantToFillInTheInformation"
-                                                    v-model="form.IDontWantToFillInTheInformation">
-                                                <label for="IDontWantToFillInTheInformation" class="form-check-label">
-                                                    Não quero informar os dados abaixo:
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12" v-if="form.IDontWantToFillInTheInformation === false">
-                                            <label for="estimatedPatrimony" class="nowrap">Patrimônio estimado:</label>
-                                            <input type="text" name="estimatedPatrimony" id="estimatedPatrimony"
-                                                v-model="form.estimatedPatrimony" v-maska data-maska='["##",
-                                                                          "#,##","##,##","###,##",
-                                                                          "#.###,##","##.###,##","###.###,##",
-                                                                          "#.###.###,##","##.###.###,##","###.###.###,##",
-                                                                          "#.###.###.###,##", "##.###.###.###,##", "###.###.###.###,##"
-                                                                          ]'>
-                                        </div>
-                                        <div class="col-12" v-if="form.IDontWantToFillInTheInformation === false">
-                                            <label for="finantialSituation">Renda Mensal:</label>
-                                            <input type="text" name="finantialSituation" id="finantialSituation"
-                                                v-model="form.finantialSituation" v-maska data-maska='["##",
-                                                                          "#,##","##,##","###,##",
-                                                                          "#.###,##","##.###,##","###.###,##",
-                                                                          "#.###.###,##","##.###.###,##","###.###.###,##",
-                                                                          "#.###.###.###,##", "##.###.###.###,##", "###.###.###.###,##"
-                                                                          ]'>
-                                        </div>
-                                        <div class="col-12" v-if="form.IDontWantToFillInTheInformation === false">
-                                            <label for="profession">Profissão:</label>
-                                            <input type="text" name="profession" id="profession"
-                                                v-model="form.profession">
-                                        </div>
+                                    <div class="box-check">
+                                        <input type="checkbox" class="checkbox form-check-input"
+                                            name="IDontWantToFillInTheInformation"
+                                            id="IDontWantToFillInTheInformation"
+                                            v-model="form.IDontWantToFillInTheInformation">
+                                        <label for="IDontWantToFillInTheInformation" class="form-check-label">
+                                            Não quero informar os dados abaixo:
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div v-if="form.PEP === 'true'" class="col-12 mt-4">
+                                    <div v-if="form.IDontWantToFillInTheInformation === false">
+                                        <label for="estimatedPatrimony" class="nowrap">Patrimônio estimado:</label>
+                                        <input type="text" name="estimatedPatrimony" id="estimatedPatrimony"
+                                            v-model="form.estimatedPatrimony" v-maska data-maska='["##",
+                                                                      "#,##","##,##","###,##",
+                                                                      "#.###,##","##.###,##","###.###,##",
+                                                                      "#.###.###,##","##.###.###,##","###.###.###,##",
+                                                                      "#.###.###.###,##", "##.###.###.###,##", "###.###.###.###,##"
+                                                                      ]'>
+                                    </div>
+                                    <div v-if="form.IDontWantToFillInTheInformation === false">
+                                        <label for="finantialSituation">Renda Mensal:</label>
+                                        <input type="text" name="finantialSituation" id="finantialSituation"
+                                            v-model="form.finantialSituation" v-maska data-maska='["##",
+                                                                      "#,##","##,##","###,##",
+                                                                      "#.###,##","##.###,##","###.###,##",
+                                                                      "#.###.###,##","##.###.###,##","###.###.###,##",
+                                                                      "#.###.###.###,##", "##.###.###.###,##", "###.###.###.###,##"
+                                                                      ]'>
+                                    </div>
+                                    <div v-if="form.IDontWantToFillInTheInformation === false">
+                                        <label for="profession">Profissão:</label>
+                                        <input type="text" name="profession" id="profession"
+                                            v-model="form.profession">
                                     </div>
                                 </div>
 
                                 <div class="col-12 mt-4">
                                     <button class="buttonAkad" @click="pageActive++"
-                                        :disabled="!validateForm(4)">Continuar</button>
+                                        :disabled="!validateForm(4)">Iniciar contratação</button>
                                 </div>
                             </div>
                         </div>
@@ -1026,7 +1026,7 @@
                         brokerageFirmName: "Campinas Corretora de Seguros Ltda",
                     },
                     whatsappNumber: '5519999454854',
-                    pageActive: 2,
+                    pageActive: 4,
                     personalType: 1,
                     loading: false,
                     token: '',
@@ -1073,6 +1073,7 @@
                         { text: 'Até 5 anos', value: 6 }
                     ],
                     sexoOption: [
+                        { text: 'Selecione o gênero', value: '' },
                         { text: 'Masculino', value: 'M' },
                         { text: 'Feminino', value: 'F' }
                     ],
@@ -1310,6 +1311,7 @@
             },
             methods: {
                 hideSection() {
+                    this.pageActive++
                     let div = document.getElementById('bzAZMGJSU92xMdyAuxZqJa5DTKEDkEC8')
                     div.style.display = 'none'
                 },
