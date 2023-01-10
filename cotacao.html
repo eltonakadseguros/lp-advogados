@@ -407,39 +407,46 @@
                     <div class="row" v-if="pageActive == 5">
                         <div class="col-12">
                             <div class="row">
-                                <h1>Endereço do segurado</h1>
+                                <h1>Endereço</h1>
                                 <div class="col-12">
-                                    <label for="cep">Cep <span v-if="loading">Aguarde...</span></label>
+                                    <label for="cep">CEP <span v-if="loading">Aguarde...</span></label>
                                     <input type="text" value="" class="" name="zipCode" id="zipCode"
-                                        v-model="form.zipCode" @change="getAddress()" v-maska data-maska="#####-###">
+                                        v-model="form.zipCode" @change="getAddress()" v-maska data-maska="#####-###" placeholder="00000-000">
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <label for="rua">Rua</label>
+                                    <label for="rua">logradouro</label>
                                     <input type="text" value="" class="" name="address" id="address"
-                                        v-model="form.address">
+                                        v-model="form.address" placeholder="Digite a rua, avenida, via, etc.">
                                 </div>
                                 <div class="col-6 mt-4">
                                     <label for="rua">Número</label>
                                     <input type="text" value="" class="" name="addressNumber" id="addressNumber"
-                                        v-model="form.addressNumber">
+                                        v-model="form.addressNumber" placeholder="Digite o número">
                                 </div>
                                 <div class="col-6 mt-4">
-                                    <label for="rua" class="nowrap">Complemento (Opcional)</label>
+                                    <label for="rua" class="nowrap">Complemento</label>
                                     <input type="text" value="" class="" name="complement" id="complement"
-                                        v-model="form.complement">
+                                        v-model="form.complement" placeholder="Opcional">
                                 </div>
                                 <div class="col-12 mt-4">
                                     <label for="rua">Bairro</label>
                                     <input type="text" value="" class="" name="neighborhood" id="neighborhood"
-                                        v-model="form.neighborhood">
+                                        v-model="form.neighborhood" placeholder="Digite o bairro">
                                 </div>
                                 <div class="col-6 mt-4">
                                     <label for="rua">Cidade</label>
-                                    <input type="text" value="" class="" name="city" id="city" v-model="form.city">
+                                    <input type="text" value="" class="" name="city" id="city" v-model="form.city" placeholder="Digite a cidade">
                                 </div>
                                 <div class="col-6 mt-4">
-                                    <label for="rua">Estado</label>
-                                    <input type="text" value="" class="" name="state" id="state" v-model="form.state">
+                                    <!-- <label for="rua">Estado</label>
+                                    <input type="text" value="" class="" name="state" id="state" v-model="form.state" placeholder="UF"> -->
+
+                                    <label for="state">Estado</label>
+                                    <select v-model="form.state" id="state">
+                                        <option v-for="option in state" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="col-12 mt-4">
                                     <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(5)">
@@ -1026,7 +1033,7 @@
                         brokerageFirmName: "Campinas Corretora de Seguros Ltda",
                     },
                     whatsappNumber: '5519999454854',
-                    pageActive: 4,
+                    pageActive: 1,
                     personalType: 1,
                     loading: false,
                     token: '',
@@ -1076,6 +1083,36 @@
                         { text: 'Selecione o gênero', value: '' },
                         { text: 'Masculino', value: 'M' },
                         { text: 'Feminino', value: 'F' }
+                    ],
+                    state: [
+                        {text: 'UF', value: ''},
+                        {text: 'AC', value: 'AC'},
+                        {text: 'AL', value: 'AL'},
+                        {text: 'AP', value: 'AP'},
+                        {text: 'AM', value: 'AM'},
+                        {text: 'BA', value: 'BA'},
+                        {text: 'CE', value: 'CE'},
+                        {text: 'DF', value: 'DF'},
+                        {text: 'ES', value: 'ES'},
+                        {text: 'GO', value: 'GO'},
+                        {text: 'MA', value: 'MA'},
+                        {text: 'MT', value: 'MT'},
+                        {text: 'MS', value: 'MS'},
+                        {text: 'MG', value: 'MG'},
+                        {text: 'PA', value: 'PA'},
+                        {text: 'PB', value: 'PB'},
+                        {text: 'PR', value: 'PR'},
+                        {text: 'PE', value: 'PE'},
+                        {text: 'PI', value: 'PI'},
+                        {text: 'RJ', value: 'RJ'},
+                        {text: 'RN', value: 'RN'},
+                        {text: 'RS', value: 'RS'},
+                        {text: 'RO', value: 'RO'},
+                        {text: 'RR', value: 'RR'},
+                        {text: 'SC', value: 'SC'},
+                        {text: 'SP', value: 'SP'},
+                        {text: 'SE', value: 'SE'},
+                        {text: 'TO', value: 'TO'}
                     ],
                     today: '',
                     boxPaymentMethod: true,
