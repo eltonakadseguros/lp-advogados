@@ -466,8 +466,9 @@
                     </div>
 
                     <div class="row" v-if="pageActive == 6">
+                        <h1>Método de Pagamento</h1>
 
-                        <div class="col-12">
+                        <div class="col-12 mt-4">
                             <div class="d-flex">
                                 <button class="btn-akad nowrap" @click="resetInstallmentOption(1)"
                                     :class="{'btn-active' : installmentOptionSelected == 1}">Boleto</button>
@@ -480,6 +481,7 @@
                             <label for="installmentOptionTiket">Quantidade de parcelas</label>
                             <select id="installmentOptionTiket" v-model="installmentOptionTiket"
                                 @change="payment(1, installmentOptionTiket)">
+                                <option value="">Selecione as parcelas</option>
                                 <option v-for="option in installmentTicket.installments" v-bind:value="option"
                                     :class="{'option-bold' : option.insterestValue == 0}">
                                     {{option.installmentNumber}}x {{option.insterestValue > 0 ? 'com' : 'sem'}}
@@ -493,6 +495,7 @@
                             <label for="installmentOptionCredit">Quantidade de parcelas</label>
                             <select id="installmentOptionCredit" v-model="installmentOptionCredit"
                                 @change="payment(2, installmentOptionCredit)">
+                                <option value="">Selecione as parcelas</option>
                                 <option v-for="option in installmentCreditCard.installments" v-bind:value="option"
                                     :class="{'option-bold' : option.insterestValue == 0}">
                                     {{option.installmentNumber}}x {{option.insterestValue > 0 ? 'com' : 'sem'}}
@@ -1118,8 +1121,8 @@
                     boxPaymentMethod: true,
                     documents: [],
                     activity: '',
-                    installmentOptionCredit: [],
-                    installmentOptionTiket: [],
+                    installmentOptionCredit: '',
+                    installmentOptionTiket: '',
                     form: {
                         corretora: '',
                         name: '',
