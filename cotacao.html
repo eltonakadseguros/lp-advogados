@@ -466,53 +466,62 @@
                     </div>
 
                     <div class="row" v-if="pageActive == 6">
-                        <h1>Método de Pagamento</h1>
 
-                        <div class="col-12 mt-4">
-                            <div class="d-flex">
-                                <button class="btn-akad nowrap" @click="resetInstallmentOption(1)"
-                                    :class="{'btn-active' : installmentOptionSelected == 1}">Boleto</button>
-                                <button class="btn-akad nowrap" @click="resetInstallmentOption(2)"
-                                    :class="{'btn-active' : installmentOptionSelected == 2}">Cartão de crédito</button>
-                            </div>
-                        </div>
-                        <div class="col-12 mt-4" v-if="installmentOptionSelected == 1">
-
-                            <label for="installmentOptionTiket">Quantidade de parcelas</label>
-                            <select id="installmentOptionTiket" v-model="installmentOptionTiket"
-                                @change="payment(1, installmentOptionTiket)">
-                                <option value="">Selecione as parcelas</option>
-                                <option v-for="option in installmentTicket.installments" v-bind:value="option"
-                                    :class="{'option-bold' : option.insterestValue == 0}">
-                                    {{option.installmentNumber}}x {{option.insterestValue > 0 ? 'com' : 'sem'}}
-                                    juros de
-                                    {{valuePtBr(option.totalInstallment)}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-12" v-if="installmentOptionSelected == 2">
-
-                            <label for="installmentOptionCredit">Quantidade de parcelas</label>
-                            <select id="installmentOptionCredit" v-model="installmentOptionCredit"
-                                @change="payment(2, installmentOptionCredit)">
-                                <option value="">Selecione as parcelas</option>
-                                <option v-for="option in installmentCreditCard.installments" v-bind:value="option"
-                                    :class="{'option-bold' : option.insterestValue == 0}">
-                                    {{option.installmentNumber}}x {{option.insterestValue > 0 ? 'com' : 'sem'}}
-                                    juros de
-                                    {{valuePtBr(option.totalInstallment)}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-12" v-if="form.paymentMethodId > 1">
+                        <div class="col-12">
                             <div class="row">
-                                <p>Dados do cartão de crédito</p>
-                                <div class="col-12">
-                                    <label for="cardName nowrap">Nome</label>
-                                    <input type="text" name="cardName" id="cardName" v-model="form.cardName">
+                                <h1>Método de Pagamento</h1>
+                                <div class="col-12 mt-4">
+                                    <div class="d-flex">
+                                        <button class="btn-akad nowrap" @click="resetInstallmentOption(1)"
+                                            :class="{'btn-active' : installmentOptionSelected == 1}">Boleto</button>
+                                        <button class="btn-akad nowrap" @click="resetInstallmentOption(2)"
+                                            :class="{'btn-active' : installmentOptionSelected == 2}">Cartão de crédito</button>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+
+                                <div class="col-12 mt-4" v-if="installmentOptionSelected == 1">
+                                    <label for="installmentOptionTiket">Número de parcelas</label>
+                                    <select id="installmentOptionTiket" v-model="installmentOptionTiket"
+                                        @change="payment(1, installmentOptionTiket)">
+                                        <option value="">Selecione as parcelas</option>
+                                        <option v-for="option in installmentTicket.installments" v-bind:value="option"
+                                            :class="{'option-bold' : option.insterestValue == 0}">
+                                            {{option.installmentNumber}}x {{option.insterestValue > 0 ? 'com' : 'sem'}}
+                                            juros de
+                                            {{valuePtBr(option.totalInstallment)}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 mt-4" v-if="installmentOptionSelected == 2">
+
+                                    <label for="installmentOptionCredit">Número de parcelas</label>
+                                    <select id="installmentOptionCredit" v-model="installmentOptionCredit"
+                                        @change="payment(2, installmentOptionCredit)">
+                                        <option value="">Selecione as parcelas</option>
+                                        <option v-for="option in installmentCreditCard.installments" v-bind:value="option"
+                                            :class="{'option-bold' : option.insterestValue == 0}">
+                                            {{option.installmentNumber}}x {{option.insterestValue > 0 ? 'com' : 'sem'}}
+                                            juros de
+                                            {{valuePtBr(option.totalInstallment)}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 mt-4" v-if="form.paymentMethodId > 1">
+                                    <label for="cardNumber1 nowrap">Número do cartão</label>
+                                    <div style="display: flex;">
+                                        <input type="text" name="cardNumber" v-maska data-maska="#### #### #### ####"
+                                            @input="nextInput" v-model="form.cardNumber" placeholder="0000 0000 000 0000">
+                                    </div>
+                                </div>
+    
+                                <div class="col-12 mt-4" v-if="form.paymentMethodId > 1">
+                                    <label for="cardName nowrap">Nome do titular do cartão</label>
+                                    <input type="text" name="cardName" id="cardName" v-model="form.cardName" placeholder="Igual ao impresso no cartão">
+                                </div>
+
+                                <div class="col-12 mt-4" v-if="form.paymentMethodId > 1">
                                     <label for="">Cartão</label>
                                     <select v-model="form.paymentMethodId">
                                         <option v-bind:value="2">
@@ -526,40 +535,35 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <label for="cardNumber1 nowrap">Número do cartão</label>
-                                    <div style="display: flex;">
-                                        <input type="text" name="cardNumber" v-maska data-maska="#### #### #### ####"
-                                            @input="nextInput" v-model="form.cardNumber">
-                                    </div>
-                                </div>
-                                <div class="col-12">
+    
+                                <div class="col-6 mt-4" v-if="form.paymentMethodId > 1">
                                     <label for="cardExpirationDate nowrap">Vencimento</label>
                                     <div style="display: flex;">
                                         <input type="text" name="cardExpirationDate" id="cardExpirationDate"
-                                            v-model="form.cardExpirationDate" placeholder="mês" v-maska
+                                            v-model="form.cardExpirationDate" placeholder="00/0000" v-maska
                                             data-maska="##/####" @input="nextInput2">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <label for="cardSecurityCode" class="nowrap">Cod. segurança</label>
+                                <div class="col-6 mt-4" v-if="form.paymentMethodId > 1">
+                                    <label for="cardSecurityCode" class="nowrap">CVV</label>
                                     <input type="text" name="cardSecurityCode" id="cardSecurityCode"
-                                        v-model="form.cardSecurityCode" v-maska data-maska="###">
+                                        v-model="form.cardSecurityCode" v-maska data-maska="###" placeholder="000">
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(6)">
+                                        <span>Avançar</span>
+                                        <div class="p-1">
+                                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M0.831775 15.5125C1.24011 15.9208 1.89844 15.9208 2.30677 15.5125L9.23178 8.58749C9.55678 8.26249 9.55678 7.73749 9.23178 7.41249L2.30677 0.487494C1.89844 0.0791606 1.24011 0.0791606 0.831775 0.487494C0.423442 0.895827 0.423442 1.55416 0.831775 1.96249L6.86511 8.00416L0.823441 14.0458C0.423441 14.4458 0.423442 15.1125 0.831775 15.5125Z"
+                                                    fill="white" />
+                                            </svg>
+                                        </div>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(6)">
-                                <span>Avançar</span>
-                                <div class="p-1">
-                                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M0.831775 15.5125C1.24011 15.9208 1.89844 15.9208 2.30677 15.5125L9.23178 8.58749C9.55678 8.26249 9.55678 7.73749 9.23178 7.41249L2.30677 0.487494C1.89844 0.0791606 1.24011 0.0791606 0.831775 0.487494C0.423442 0.895827 0.423442 1.55416 0.831775 1.96249L6.86511 8.00416L0.823441 14.0458C0.423441 14.4458 0.423442 15.1125 0.831775 15.5125Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                            </button>
                         </div>
                     </div>
 
@@ -1421,7 +1425,7 @@
                         if (event.target.nextElementSibling) {
                             event.target.nextElementSibling.focus()
                         } else {
-                            document.getElementById("cardExpirationDate").focus();
+                            document.getElementById("cardName").focus();
                         }
                     }
                 },
