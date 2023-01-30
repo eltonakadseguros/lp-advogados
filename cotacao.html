@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div id="app" class="container-akad">
+<div id="app" class="container-akad">
 
         <div>
             <div class="btns-phase mb-4">
@@ -128,6 +128,10 @@
                                     </svg>
                                 </div>
                             </button>
+                        </div>
+
+                        <div class="mt-4 mb-4">
+                            <p>Ao enviar você concorda que o corretor poderá entrar em contato com você.</p>
                         </div>
                     </div>
                     <div class="row" v-if="pageActive == 2">
@@ -316,7 +320,7 @@
                                     <input type="text" v-maska data-maska="['(##) ####-####', '(##) # ####-####']"
                                         name="phoneNumber" id="phoneNumber" v-model="form.phoneNumber" placeholder="(--) ---- ----">
                                 </div>
-                                <div class="col-12 mt-4">
+                                <div class="col-12 mt-4" v-if="personalType == 1">
                                     <label for="">Gênero</label>
                                     <select v-model="form.gender">
                                         <option v-for="option in sexoOption" v-bind:value="option.value">
@@ -577,8 +581,8 @@
                                                 <b class="text-end bNegrito">{{form.name}}</b>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <span class="infoInput nowrap">CPF:</span>
-                                                <b class="text-end bNegrito">{{form.cpf}}</b>
+                                                <span class="infoInput nowrap">{{personalType == 1 ? 'CPF:' : 'CNPJ'}}</span>
+                                                <b class="text-end bNegrito">{{personalType == 1 ? form.cpf : form.cnpj}}</b>
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="infoInput nowrap">E-mail:</span>
@@ -2054,7 +2058,10 @@
                             return this.form.estimatedPatrimony !== '' && this.form.finantialSituation !== '' && this.form.profession !== ''
 
                         }
-                        return this.form.birthDate !== '' && this.form.phoneNumber !== '' && this.form.gender !== ''
+                        if (this.personalType == 1) {
+                            return this.form.birthDate !== '' && this.form.phoneNumber !== '' && this.form.gender !== ''
+                        }
+                        return this.form.birthDate !== '' && this.form.phoneNumber !== ''
                     }
 
                     if (page == 5) {
@@ -2335,7 +2342,7 @@
                             "FinantialSituation": this.form.finantialSituation,
                             "Profession": this.form.profession,
                             "PhoneNumber": this.form.phoneNumber,
-                            "Address": `${this.form.Address}, ${this.form.addressNumber} - ${this.form.neighborhood}`,
+                            "Address": `${this.form.address}, ${this.form.addressNumber} - ${this.form.neighborhood}`,
                             "BirthDate": this.form.birthDate
                         }
                     };
