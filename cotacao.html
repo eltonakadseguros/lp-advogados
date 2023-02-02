@@ -310,10 +310,9 @@
                                 </div>
 
 
-                                <div class="col-12">
+                                <div class="col-12" v-if="personalType == 1">
                                     <label for="birthDate">Data de nascimento</label>
-                                    <input type="date" name="birthDate" id="birthDate"
-                                        v-model="form.birthDate">
+                                    <input type="date" name="birthDate" id="birthDate" v-model="form.birthDate">
                                 </div>
                                 <div class="col-12 mt-4">
                                     <label for="rua">Telefone</label>
@@ -2061,7 +2060,7 @@
                         if (this.personalType == 1) {
                             return this.form.birthDate !== '' && this.form.phoneNumber !== '' && this.form.gender !== ''
                         }
-                        return this.form.birthDate !== '' && this.form.phoneNumber !== ''
+                        return this.form.phoneNumber !== ''
                     }
 
                     if (page == 5) {
@@ -2376,21 +2375,9 @@
                 checkout() {
                     this.loading = true
 
-                    const birthDate = new Date(this.form.birthDate)
-                    let cardNumber = null
-                    let cardExpirationDate = ""
-                    if (this.form.paymentMethodId > 1) {
-                        cardNumber = `${this.form.cardNumber}`
-                        cardExpirationDate = `${this.form.cardExpirationDate}`
-                    }
-
-                    let identity = this.form.cpf
-                    let gender = this.form.gender
-
-                    if (this.personalType == 2) {
-                        identity = this.form.cnpj
-                        gender = null
-                    }
+                    const cardNumber = this.form.paymentMethodId > 1 ? `${this.form.cardNumber}` : null
+                    const cardExpirationDate = this.form.paymentMethodId > 1 ? `${this.form.cardExpirationDate}` : ""
+                    const identity = this.personalType == 1 ? this.form.cpf : this.form.cnpj
 
                     const raw = {
                         "quotationCode": this.form.identifier,
@@ -2401,21 +2388,6 @@
                             "cardNumber": cardNumber,
                             "cardExpirationDate": cardExpirationDate,
                             "cardSecurityCode": `${this.form.cardSecurityCode}`
-                        },
-                        "insuredData": {
-                            "name": this.form.name,
-                            "identity": identity,
-                            "email": this.form.email,
-                            "birthDate": birthDate,
-                            "phoneNumber": this.form.phoneNumber,
-                            "zipCode": this.form.zipCode,
-                            "address": this.form.address,
-                            "neighborhood": this.form.neighborhood,
-                            "number": this.form.addressNumber,
-                            "state": this.form.state,
-                            "city": this.form.city,
-                            "complement": this.form.complement,
-                            gender
                         },
                         "policyData": null,
                         "brokerInfo": {
@@ -2438,10 +2410,31 @@
                             "Profession": this.form.profession,
                             "PhoneNumber": this.form.phoneNumber,
                             "Address": `${this.form.address}, ${this.form.number} ${this.form.complement} - ${this.form.neighborhood}, ${this.form.city} - ${this.form.state}, ${this.form.zipCode}`,
-                            "BirthDate": birthDate
+                            "BirthDate": this.personalType == 1 ? new Date(this.form.birthDate) : null
                         },
                         "GeneralConditionsAgreed": true
                     };
+
+                    const insuredData = {
+                        "name": this.form.name,
+                        "identity": identity,
+                        "email": this.form.email,
+                        "phoneNumber": this.form.phoneNumber,
+                        "zipCode": this.form.zipCode,
+                        "address": this.form.address,
+                        "neighborhood": this.form.neighborhood,
+                        "number": this.form.addressNumber,
+                        "state": this.form.state,
+                        "city": this.form.city,
+                        "complement": this.form.complement,
+                    }
+
+                    if (this.personalType == 1) {
+                        insuredData.birthDate = new Date(this.form.birthDate)
+                        insuredData.gender = this.form.gender
+                    }
+
+                    raw.insuredData = insuredData
 
                     const subscriptionKey = this.personalType == 1 ? this.subscriptionKey : this.subscriptionKeyPj
 
