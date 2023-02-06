@@ -34,14 +34,14 @@
                         </span>
                     </a>
                 </div>
-                <div class="ball1" :class="{'active' : validateForm(1)}, {'page-active' : pageActive == 1}"></div>
-                <div class="ball1" :class="{'active' : validateForm(2)}, {'page-active' : pageActive == 2}"></div>
-                <div class="ball1" :class="{'active' : validateForm(3)}, {'page-active' : pageActive == 3}"></div>
-                <div class="ball1" :class="{'active' : validateForm(4)}, {'page-active' : pageActive == 4}"></div>
-                <div class="ball1" :class="{'active' : validateForm(5)}, {'page-active' : pageActive == 5}"></div>
-                <div class="ball1" :class="{'active' : validateForm(6)}, {'page-active' : pageActive == 6}"></div>
-                <div class="ball1" :class="{'active' : pageActive == 8 }, {'page-active' : pageActive == 7}"></div>
-                <div class="ball1" :class="{'active' : pageActive == 8}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : validateForm(1)}, {'page-active' : pageActive == 1}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : validateForm(2)}, {'page-active' : pageActive == 2}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : validateForm(3)}, {'page-active' : pageActive == 3}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : validateForm(4)}, {'page-active' : pageActive == 4}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : validateForm(5)}, {'page-active' : pageActive == 5}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : validateForm(6)}, {'page-active' : pageActive == 6}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : pageActive == 8 }, {'page-active' : pageActive == 7}"></div>
+                <div v-if="pageActive !== 8" class="ball1" :class="{'active' : pageActive == 8}"></div>
             </div>
 
 
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button class="buttonAkad" @click="hideSection" :disabled="!validateForm(1)">
+                            <button class="buttonAkad" @click="leadCold" :disabled="!validateForm(1)">
                                 <span>Avançar</span>
                                 <div class="p-1">
                                     <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -409,7 +409,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="pageActive++"
+                                    <button class="buttonAkad" @click="leadHot(2)"
                                         :disabled="!validateForm(4)">Iniciar contratação</button>
                                 </div>
                             </div>
@@ -461,7 +461,7 @@
                                     </select>
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(5)">
+                                    <button class="buttonAkad" @click="leadHot(3)" :disabled="!validateForm(5)">
                                         <span>Avançar</span>
                                         <div class="p-1">
                                             <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -563,7 +563,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(6)">
+                                    <button class="buttonAkad" @click="leadHot(4)" :disabled="!validateForm(6)">
                                         <span>Avançar</span>
                                         <div class="p-1">
                                             <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -1584,17 +1584,20 @@
                     username: '45943584030',
                     password: 'Argo@2022@',
                     subscriptionKey: '30d6bd4df518447f8806e81abe5c4170',
+                    subscriptionKeyLead: '97f4c3746a8642bfbe9907af506dc104',
                     subscriptionKeyPj: '345f66e709ea45ebb148381eb232840d',
-                    brokerIdentityPartyAdmin: '45850295089',
+                    operationIdPf: "42",
+                    operationIdPj: "43",
+                    brokerIdentityPartyAdmin: '14868712000131',
                     brokerInfo: {
-                        cnpj: "02832406000166",
+                        cnpj: "14868712000131",
                         susepNumber: "202063444",
-                        name: "Campinas Corretora de Seguros Ltda",
+                        name: "Akad Seguros Ltda",
                         email: "nomail@nomail.com",
-                        brokerageFirmName: "Campinas Corretora de Seguros Ltda",
+                        brokerageFirmName: "Akadseguros",
                     },
                     companyInfo: {
-                        phone:  "(55) 19 9 9945-4854"
+                        phone:  "(xx) xx x xxxx-xxxx"
                     },
                     whatsappNumber: '5519999454854',
                     pageActive: 1,
@@ -1940,7 +1943,7 @@
 
                     const subscriptionKey = this.subscriptionKeyLead
 
-                    let config = {
+                    const config = {
                         headers: {
                             "Content-Type": "application/json",
                             'Ocp-Apim-Subscription-Key': subscriptionKey
@@ -1956,7 +1959,10 @@
                         })
                 },
                 leadHot(status) {
-                    this.pageActive++
+
+                    if (status !== 5) {
+                        this.pageActive++
+                    }
 
                     let url = 'quotation/api/lead/position'
                     let raw = {
@@ -2561,6 +2567,7 @@
                             this.documents = response.data.documents[0]
                             this.pageActive = 8
                             this.loading = false
+                            this.leadHot(5)
                         })
                         .catch((error) => {
                             this.loading = false
