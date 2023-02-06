@@ -73,7 +73,7 @@
                                     <path d="M9 12.6667L9 10.6667" stroke="#E01B1B" stroke-width="2"/>
                                 </svg>
                                 <span class="text-danger-akad">
-                                    Digite o {{personalType == 1 ? 'Nome Completo' : 'Razão Social'}} completo.
+                                    Digite o {{personalType == 1 ? 'Nome' : 'Razão Social'}} completo.
                                 </span>
                             </div>
                         </div>
@@ -1919,7 +1919,7 @@
                         return true
                     }
 
-                    return arrayDoNome[1].length < 3 ? true : false
+                    return arrayDoNome[1].length < 1 ? true : false
                 }
             },
             methods: {
