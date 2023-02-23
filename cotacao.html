@@ -485,9 +485,9 @@
                                 <div class="col-12 mt-4">
                                     <div class="d-flex">
                                         <button class="btn-akad nowrap" @click="resetInstallmentOption(1)"
-                                            :class="{'btn-active' : installmentOptionSelected == 1}">Boleto</button>
+                                            :class="{'btn-active' : installmentOptionSelected == 1}" v-if="boleto">Boleto</button>
                                         <button class="btn-akad nowrap" @click="resetInstallmentOption(2)"
-                                            :class="{'btn-active' : installmentOptionSelected == 2}">Cartão de crédito</button>
+                                            :class="{'btn-active' : installmentOptionSelected == 2}" v-if="cartaoCredito">Cartão de crédito</button>
                                     </div>
                                 </div>
 
@@ -1601,7 +1601,10 @@
                         phone:  "(xx) xx x xxxx-xxxx"
                     },
                     whatsappNumber: '5519999454854',
-                    pageActive: 1,
+                    boleto: true,
+                    cartaoCredito: true,
+                    installmentOptionSelected: 1,
+                    pageActive: 6,
                     personalType: 1,
                     loading: false,
                     token: '',
@@ -1610,7 +1613,6 @@
                     insuredAmountOption: [],
                     cards: {},
                     paymentOptions: [],
-                    installmentOptionSelected: 1,
                     selectedOptions: [],
                     invoicingOption: [
                         {text: 'Selecione o faturamento', value: ''},
