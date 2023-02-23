@@ -2633,6 +2633,32 @@
             font-family: 'Open Sans', sans-serif !important;
         }
 
+        .tooltipAkadBox {
+            display: flex;
+            align-items: center;
+        }
+
+        .tooltipAkad {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltipAkad .tooltiptextAkad {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltipAkad:hover .tooltiptextAkad {
+            visibility: visible;
+        }
+
         .option-bold {
             font-weight: bold;
         }
