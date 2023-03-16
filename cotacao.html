@@ -54,9 +54,9 @@
                         <div class="col-12 mt-4">
                             <div class="d-flex">
                                 <button class="btn-akad nowrap" @click="updatePersonType(1)"
-                                    :class="{'btn-active' : personalType == 1}">Pessoa fisica</button>
+                                    :class="{'btn-active' : personalType == 1}" id="btn-pf">Pessoa fisica</button>
                                 <button class="btn-akad nowrap" @click="updatePersonType(2)"
-                                    :class="{'btn-active' : personalType == 2}">Pessoa juridica</button>
+                                    :class="{'btn-active' : personalType == 2}" id="btn-pj">Pessoa juridica</button>
                             </div>
                         </div>
 
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button class="buttonAkad" @click="leadCold" :disabled="!validateForm(1)">
+                            <button class="buttonAkad" @click="leadCold" :disabled="!validateForm(1)" id="btn-advance-page-1">
                                 <span>Avançar</span>
                                 <div class="p-1">
                                     <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -228,7 +228,7 @@
                         </div>
 
                         <div class="col-12 mt-5" v-if="form.sinistrality < 4">
-                            <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(2)">
+                            <button class="buttonAkad" @click="pageActive++" :disabled="!validateForm(2)" id="btn-advance-page-2">
                                 <span>Avançar</span>
                                 <div class="p-1">
                                     <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -295,7 +295,7 @@
                             </div>
                         </div>
                         <div class="col-12 mt-4">
-                            <button class="buttonAkad" @click="quotation" :disabled="!validateForm(3)"
+                            <button class="buttonAkad" id="btn-quotation" @click="quotation" :disabled="!validateForm(3)"
                                 v-if="!loading">Calcular
                                 cotação</button>
                         </div>
@@ -410,7 +410,7 @@
 
                                 <div class="col-12 mt-4">
                                     <button class="buttonAkad" @click="leadHot(2)"
-                                        :disabled="!validateForm(4)">Iniciar contratação</button>
+                                        :disabled="!validateForm(4)" id="btn-advance-page-4">Iniciar contratação</button>
                                 </div>
                             </div>
                         </div>
@@ -461,7 +461,7 @@
                                     </select>
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="leadHot(3)" :disabled="!validateForm(5)">
+                                    <button class="buttonAkad" @click="leadHot(3)" :disabled="!validateForm(5)" id="btn-advance-page-5">
                                         <span>Avançar</span>
                                         <div class="p-1">
                                             <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -563,7 +563,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="leadHot(4)" :disabled="!validateForm(6)">
+                                    <button class="buttonAkad" @click="leadHot(4)" :disabled="!validateForm(6)" id="btn-advance-page-6">
                                         <span>Avançar</span>
                                         <div class="p-1">
                                             <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -675,7 +675,7 @@
                                             </section>
                                         </div>
                                         <div class="col-12 mt-4" v-if="!loading">
-                                            <button class="buttonAkad" @click="proposal()">Contratar</button>
+                                            <button class="buttonAkad" @click="proposal()" id="contract-insurance">Contratar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1408,7 +1408,7 @@
                                 </div>
                                 <div v-if="form.PEP == 'false'">
                                     <a :href="documents.url" target="_blank" rel="noopener noreferrer"
-                                        class="buttonAkadDowload">
+                                        class="buttonAkadDowload" id="download-policy">
                                         Baixar apólice
                                     </a>
                                 </div>
