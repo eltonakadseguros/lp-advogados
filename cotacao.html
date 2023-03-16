@@ -1578,11 +1578,10 @@
         const app = createApp({
             data() {
                 return {
-                    base_url: 'https://azuh3-br-api-platform.azure-api.net',
+                    base_url: 'https://azuh-br-secmiddleware-standalone.azurewebsites.net',
                     operationCode: '75A5D97C-2824-4305-AC5A-9D4EC7F4E1EB',
                     operationCodePj: '813eb93ddeb7417b98dcc19bd750fcd6',
-                    username: '45943584030',
-                    password: 'Argo@2022@',
+                    username: '8f1959576c564d27b50db4b0b5dcd59e',
                     subscriptionKey: '30d6bd4df518447f8806e81abe5c4170',
                     subscriptionKeyLead: '97f4c3746a8642bfbe9907af506dc104', //0bf1ffb72dbc42968eaa72bd001721d3  
                     subscriptionKeyPj: '345f66e709ea45ebb148381eb232840d',
@@ -1992,7 +1991,7 @@
                         headers: {
                             "Content-Type": "application/json",
                             'Ocp-Apim-Subscription-Key': subscriptionKey,
-                            "Authorization": `Bearer ${this.token}`
+                            "Authorization": this.token
                         }
                     }
 
@@ -2358,7 +2357,7 @@
                         headers: {
                             "Content-Type": "application/json",
                             'Ocp-Apim-Subscription-Key': subscriptionKey,
-                            "Authorization": `Bearer ${this.token}`
+                            "Authorization": this.token
                         }
                     }
 
@@ -2397,7 +2396,7 @@
                         headers: {
                             "Content-Type": "application/json",
                             'Ocp-Apim-Subscription-Key': subscriptionKey,
-                            "Authorization": `Bearer ${this.token}`
+                            "Authorization": this.token
                         }
                     }
 
@@ -2471,7 +2470,7 @@
                         headers: {
                             "Content-Type": "application/json",
                             'Ocp-Apim-Subscription-Key': subscriptionKey,
-                            "Authorization": `Bearer ${this.token}`
+                            "Authorization": this.token
                         }
                     }
 
@@ -2561,7 +2560,7 @@
                         headers: {
                             "Content-Type": "application/json",
                             'Ocp-Apim-Subscription-Key': subscriptionKey,
-                            "Authorization": `Bearer ${this.token}`
+                            "Authorization": this.token
                         }
                     }
 
@@ -2596,7 +2595,6 @@
                 var urlencoded = new URLSearchParams();
                 urlencoded.append("grant_type", "password");
                 urlencoded.append("username", this.username);
-                urlencoded.append("password", this.password);
                 urlencoded.append("client_id", "portal_argo");
                 urlencoded.append("client_secret", "portal_argo_secret");
 
