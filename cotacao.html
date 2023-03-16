@@ -1606,6 +1606,8 @@
                     personalPf: true,
                     personalPj: true,
                     personalType: 1,
+                    questionIdDeductiblesPf: 3,
+                    questionIdDeductiblesPj: 3,
                     pageActive: 1,
                     loading: false,
                     token: '',
@@ -2354,6 +2356,7 @@
                 getDeductibles() {
                     const operationCode = this.personalType == 1 ? this.operationCode : this.operationCodePj
                     const subscriptionKey = this.personalType == 1 ? this.subscriptionKey : this.subscriptionKeyPj
+                    const questionIdDeductibles = this.personalType == 1 ? this.questionIdDeductiblesPf : this.questionIdDeductiblesPj
 
                     let config = {
                         headers: {
@@ -2366,7 +2369,7 @@
                     var raw = {
                         "questions": [
                             {
-                                "questionId": "3",
+                                "questionId": questionIdDeductibles,
                                 "answers": this.form.especialidade
                             }
                         ],
