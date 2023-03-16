@@ -1608,6 +1608,7 @@
                     personalType: 1,
                     questionIdDeductiblesPf: 3,
                     questionIdDeductiblesPj: 3,
+                    campaignId: 0,
                     pageActive: 1,
                     loading: false,
                     token: '',
@@ -2298,7 +2299,6 @@
 
                     const raw = {
                         "OperationCode": operationCode,
-                        //"OperationCode": '75A5D97C-2824-4305-AC5A-9D4EC7F4E1EB',
                         "RiskAnalysis": riskAnalysis,
                         "PersonalData": {
                             "Name": this.form.name,
@@ -2308,9 +2308,11 @@
                         "deductibleOption": this.form.deductible,
                         "EffectiveDate": this.form.dateInit,
                         "BrokerIdentityPartyAdmin": this.brokerIdentityPartyAdmin,
-                        //"BrokerageFirmIdentity": null,
-                        //"leadidentifier": null
                     };
+
+                    if (this.campaignId > 0 ) {
+                        raw.campaignId = this.campaignId
+                    }
 
                     let config = {
                         headers: {
