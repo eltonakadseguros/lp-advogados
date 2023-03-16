@@ -54,9 +54,9 @@
                         <div class="col-12 mt-4">
                             <div class="d-flex">
                                 <button class="btn-akad nowrap" @click="updatePersonType(1)"
-                                    :class="{'btn-active' : personalType == 1}" id="btn-pf">Pessoa fisica</button>
+                                    :class="{'btn-active' : personalType == 1}" v-if="personalPf" id="btn-pf">Pessoa fisica</button>
                                 <button class="btn-akad nowrap" @click="updatePersonType(2)"
-                                    :class="{'btn-active' : personalType == 2}" id="btn-pj">Pessoa juridica</button>
+                                    :class="{'btn-active' : personalType == 2}" v-if="personalPj" id="btn-pj">Pessoa juridica</button>
                             </div>
                         </div>
 
@@ -1603,8 +1603,10 @@
                     boleto: true,
                     cartaoCredito: true,
                     installmentOptionSelected: 1,
-                    pageActive: 1,
+                    personalPf: true,
+                    personalPj: true,
                     personalType: 1,
+                    pageActive: 1,
                     loading: false,
                     token: '',
                     contratar: false,
