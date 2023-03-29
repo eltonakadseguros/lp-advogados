@@ -1962,7 +1962,8 @@
                     return arrayDoNome[1].length < 1 ? true : false
                 },
                 isCPF() {
-                    const newcpf = this.form.cpf.replace(/\.|-/g,"");
+                    //const newcpf = this.form.cpf.replace(/\.|-/g,""); // Essa linha não funcionou pq a landing removeu a barra invertida: \ 29/03/23
+                    const newcpf = this.form.cpf.replace(/[.-]/g, '');
 
                     if (newcpf.length < 11) return false;
 
@@ -1985,14 +1986,15 @@
                     resto = (sum * 10) % 11;
 
                     if ((resto == 10) || (resto == 11))  resto = 0;
-                    
+
                     if (resto !== parseInt(newcpf.substring(10, 11) ) ) return false;
                     
                     return true;
                 },
                 isCNPJ() {
                     var b = [ 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 ]
-                    var newCnpj = String(this.form.cnpj).replace(/[^\d]/g, '')
+                    //var newCnpj = String(this.form.cnpj).replace(/[^\d]/g, '') // Essa linha não funcionou pq a landing removeu a barra invertida: \ 29/03/23
+                    var newCnpj = String(this.form.cnpj).replace(/[/.-]/g, '')
 
                     if(newCnpj.length !== 14) return false
 
@@ -2102,43 +2104,6 @@
                     this.form.especialidade = []
                     this.form.insuredAmount = ''
                 },
-                maskCpf(event) {
-
-                    let cpf = event.target.value
-
-
-                    if (event.target.value.length === 14) {
-                        document.getElementById("name").focus();
-                    }
-
-                    if (event.target.value.length > 14) {
-                        cpf = cpf.substring(0, cpf.length - 1)
-                        document.getElementById("name").focus();
-                    }
-
-                    cpf = cpf.replace(/\D/g, "")
-                    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-                    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-                    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-                    this.form.cpf = cpf
-
-                },
-                maskCnpj(event) {
-                    let cnpj = event.target.value
-
-                    if (cnpj.length === 18) {
-                        document.getElementById("name").focus();
-                    }
-
-                    if (cnpj.length > 18) {
-                        cnpj = cnpj.substring(0, cnpj.length - 1)
-                        document.getElementById("name").focus();
-                    }
-
-                    cnpj = cnpj.replace(/\D/g, '').replace(/^(\d{2})(\d{3})?(\d{3})?(\d{4})?(\d{2})?/, "$1.$2.$3/$4-$5");
-
-                    this.form.cnpj = cnpj
-                },
                 back() {
                     let pageActive = this.pageActive
                     pageActive--
@@ -2224,7 +2189,15 @@
                                 return  false
                             }
 
+                            if (!this.isCPF) {
+                                return false
+                            }
+
                             return this.form.name !== '' && this.form.cpf !== '' && this.form.oab !== '' && this.form.email !== '' && this.form.especialidade.length > 0
+                        }
+
+                        if (!this.isCNPJ) {
+                            return false
                         }
 
                         return this.form.name !== '' && this.form.cnpj !== '' && this.form.invoicing !== '' && this.form.email !== '' && this.form.especialidade.length > 0 && this.personalType !== null
