@@ -49,8 +49,7 @@
                 <div style="max-width: 31.25rem;">
                     <div class="row" v-if="pageActive == 1">
                         <h1>Cotação e contratação</h1>
-
-                        <div class="col-12">
+<div class="col-12">
                             <div class="alert alert-primary d-flex align-items-center justify-content-center mt-3" role="alert">
                                 <label class="tooltipAkad">
                                     <svg height="20px" width="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -64,11 +63,10 @@
                                 </label>
                                 &nbsp;&nbsp;
                                 <div>
-                                    Essa condição é exclusiva para clientes que não possuem apólice do mesmo risco vigente, para dúvidas, entre em contato com seu correto através do Whatsapp.
+                                    Essa condição é exclusiva para clientes que não possuem apólice do mesmo risco vigente, para dúvidas, entre em contato com seu corretor através do Whatsapp.
                                 </div>
                             </div>
                         </div>
-
 
                         <h2 class="mt-2">SEGURO ADVOGADO PESSOA {{personalType == 1 ? 'FÍSICA' : 'JURÍDICA'}}</h2>
                         <div class="col-12 mt-4">
@@ -718,11 +716,9 @@
                                             <section class="d-flex justify-content-between">
                                                 <b class="nowrap bNegrito">Prêmio total</b>
                                                 <div class="d-flex flex-column">
-                                                    <span class="price-total">
-                                                        {{valuePtBr(form.installment.totalValue)}}
-                                                    </span>
-                                                    <span class="price-chosen">
-                                                        Em
+                                                    <span
+                                                        class="price-total">{{valuePtBr(form.installment.totalValue)}}</span>
+                                                    <span class="price-chosen">Em
                                                         {{form.installment.installmentNumber}}x de
                                                         {{valuePtBr(form.installment.totalInstallment)}}</span>
                                                 </div>
@@ -1602,9 +1598,10 @@
 
         </div>
 
-        <div v-if="error" class="d-flex justify-content-center alert alert-danger mt-3" role="alert">
-            Erro, Por favor recarregue a pagina!
-          </div>
+<div v-if="error" class="d-flex justify-content-center alert alert-danger mt-3" role="alert">
+    Erro, Por favor recarregue a pagina!
+  </div>
+
         <div class="loader-container" v-if="loading">
             <div class="loader">
                 <div class="ball"></div>
@@ -1646,7 +1643,7 @@
                     operationIdPj: "43",
                     brokerIdentityPartyAdmin: '14868712000131',
                     brokerInfo: {
-                        cnpj: "14868712000131",
+                        cnpj: "07753626000118",
                         susepNumber: "202063444",
                         name: "Akad Seguros Ltda",
                         email: "nomail@nomail.com",
@@ -2665,7 +2662,7 @@
                     this.form.numberComplaints = 1
                 }
             },
-            created() {
+            created() { 
                 this.loading = true;
                 let today = new Date()
                 var dd = String(today.getDate()).padStart(2, '0');
@@ -2696,16 +2693,16 @@
                 };
 
                 fetch(`${this.base_url}/security/connect/token`, requestOptions)
-                    .then((response) => response.json())
-                    .then((result) => {
-                    this.loading = false;
-                    this.token = result.access_token;
-                    console.log('v.1.00.1');
-                })
-                .catch((error) => {
-                    this.loading = false;
-                    this.error = error;
-                });
+                    .then(response => response.json())
+                    .then(result => {
+                        this.loading = false;
+                        this.token = result.access_token
+                        console.log('v.1.00.1');
+                    })
+                    .catch((error) => {
+                      this.loading = false;
+                      this.error = error;
+                    });
             },
         })
 
