@@ -170,7 +170,7 @@
                         </div>
 
                         <div class="col-12" v-if="token !== ''">
-                            <button class="buttonAkad" @click="leadCold" :disabled="!validateForm(1)" id="btn-advance-page-1">
+                            <button class="buttonAkad" @click="leadCold()" :disabled="!validateForm(1)" id="btn-advance-page-1">
                                 <span>Avançar</span>
                                 <div class="p-1">
                                     <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -459,7 +459,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="leadHot(2)"
+                                    <button class="buttonAkad" @click="leadCold(2)"
                                         :disabled="!validateForm(4)" id="btn-advance-page-4">Iniciar contratação</button>
                                 </div>
                             </div>
@@ -511,7 +511,7 @@
                                     </select>
                                 </div>
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="leadHot(3)" :disabled="!validateForm(5)" id="btn-advance-page-5">
+                                    <button class="buttonAkad" @click="leadCold(3)" :disabled="!validateForm(5)" id="btn-advance-page-5">
                                         <span>Avançar</span>
                                         <div class="p-1">
                                             <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -613,7 +613,7 @@
                                 </div>
 
                                 <div class="col-12 mt-4">
-                                    <button class="buttonAkad" @click="leadHot(4)" :disabled="!validateForm(6)" id="btn-advance-page-6">
+                                    <button class="buttonAkad" @click="leadCold(4)" :disabled="!validateForm(6)" id="btn-advance-page-6">
                                         <span>Avançar</span>
                                         <div class="p-1">
                                             <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -2038,7 +2038,7 @@
                 }
             },
             methods: {
-                leadCold() {
+                leadCold(status = null) {
                     this.pageActive++
 
                     const operationId = this.personalType == 1 ? this.operationIdPf : this.operationIdPj
@@ -2053,6 +2053,12 @@
                         "brokerageFirmIdentity" : this.brokerInfo.cnpj
                     };
 
+                    if(status) {
+                        raw.identifier = this.identifierLead
+                        raw.status = status
+                        raw.PhoneNumber = this.form.phoneNumber
+                    }
+
                     const subscriptionKey = this.subscriptionKeyLead
 
                     const config = {
@@ -2064,7 +2070,12 @@
 
                     axios.post(`${this.base_url}/quotation/api/lead`, JSON.stringify(raw), config)
                         .then((response) => {
-                            this.identifierLead = response.data.identifier
+                            if(status) {
+                                console.log("lead ok");
+                            } else {
+                                this.identifierLead = response.data.identifier
+                            }
+                            
                         })
                         .catch((error) => {
                             console.log(error);
@@ -2652,7 +2663,7 @@
                             this.documents = response.data.documents[0]
                             this.pageActive = 8
                             this.loading = false
-                            this.leadHot(5)
+                            this.leadCold(5)
                         })
                         .catch((error) => {
                             this.loading = false
