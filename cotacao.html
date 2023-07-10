@@ -381,6 +381,9 @@
                                     <label for="rua">Telefone</label>
                                     <input type="text" v-maska data-maska="['(##) ####-####', '(##) # ####-####']"
                                         name="phoneNumber" id="phoneNumber" v-model="form.phoneNumber" placeholder="(--) ---- ----">
+                                    <div v-if="form.phoneNumber.length > 0 && form.phoneNumber.length < 14">
+                                        Telefone incompleto
+                                    </div>
                                 </div>
                                 <div class="col-12 mt-4" v-if="personalType == 1">
                                     <label for="">Gênero</label>
@@ -604,6 +607,9 @@
                                         <input type="text" name="cardExpirationDate" id="cardExpirationDate"
                                             v-model="form.cardExpirationDate" placeholder="00/0000" v-maska
                                             data-maska="##/####" @input="nextInput2">
+                                    </div>
+                                    <div v-if="messageCardExpitarionDate">
+                                        <span>mm/aaaa</span>
                                     </div>
                                 </div>
                                 <div class="col-6 mt-4" v-if="form.paymentMethodId > 1">
@@ -1641,7 +1647,7 @@
                     subscriptionKeyPj: '345f66e709ea45ebb148381eb232840d',
                     operationIdPf: "42",
                     operationIdPj: "43",
-                    brokerIdentityPartyAdmin: '14868712000131',
+                    brokerIdentityPartyAdmin: '81510015000',
                     brokerInfo: {
                         cnpj: "07753626000118",
                         susepNumber: "202063444",
@@ -2035,6 +2041,14 @@
 
                     return true
 
+                },
+                messageCardExpitarionDate() {
+                    const totalCaracter = this.form.cardExpirationDate.length
+                    return totalCaracter > 0 && totalCaracter < 7
+                },
+                wrongPhone() {
+                    const totalCaracter = this.form.phoneNumber.length
+                    return totalCaracter >= 0 && totalCaracter < 14
                 }
             },
             methods: {
@@ -2268,9 +2282,9 @@
 
                         }
                         if (this.personalType == 1) {
-                            return this.form.birthDate !== '' && this.form.phoneNumber !== '' && this.form.gender !== ''
+                            return this.form.birthDate !== '' && !this.wrongPhone && this.form.gender !== ''
                         }
-                        return this.form.phoneNumber !== ''
+                        return !this.wrongPhone
                     }
 
                     if (page == 5) {
