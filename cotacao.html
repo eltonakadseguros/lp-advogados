@@ -2053,7 +2053,10 @@
             },
             methods: {
                 leadCold(status = null) {
-                    this.pageActive++
+
+                    if (status !== 5) {
+                        this.pageActive++
+                    }
 
                     const operationId = this.personalType == 1 ? this.operationIdPf : this.operationIdPj
 
@@ -2063,7 +2066,6 @@
                         "firstName": this.form.name,
                         "lastName": this.form.name,
                         "email": this.form.email,
-                        "location": "São Paulo, SP",
                         "brokerageFirmIdentity" : this.brokerInfo.cnpj
                     };
 
@@ -2071,6 +2073,10 @@
                         raw.identifier = this.identifierLead
                         raw.status = status
                         raw.PhoneNumber = this.form.phoneNumber
+                    }
+
+                    if(this.form.state) {
+                        raw.location = `${this.form.city} ,${this.form.state}` 
                     }
 
                     const subscriptionKey = this.subscriptionKeyLead
